@@ -1,8 +1,4 @@
-import { Hono } from 'hono'
-
-const app = new Hono()
-
-app.get('/', (c) => c.text('API com Hono + Bun 🚀'))
+import app from './app'
 
 export default {
   port: 3001,
