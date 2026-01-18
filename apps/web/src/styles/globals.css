@@ -122,4 +122,15 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 50px #121616 inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+    caret-color: white;
+  }
+
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 50px #121616 inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+  }
 }
