@@ -4,13 +4,14 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 
-import { createUserSchema, CreateUserInput } from "@/validators/user.schema"
+import { createUserSchema, CreateUserInput } from "@/schemas/user.schema"
 import { useCreateUser } from "@/hooks/use-users"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
 import { PasswordRequirements } from "@/components/password-requirements"
+import { ConfirmCreateAccountDialog } from "@/components/confirm-create-account-dialog"
 import {
   Form,
   FormField,
@@ -23,6 +24,8 @@ import { useState } from "react"
 
 export default function Home() {
   const [selectedTab, setSelectedTab] = useState<"infoProduto" | "dropshipping" | "ecommerce">("infoProduto")
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
+  const [pendingFormData, setPendingFormData] = useState<CreateUserInput | null>(null)
   const { mutateAsync, isPending } = useCreateUser()
 
   const tabs = [
@@ -46,11 +49,20 @@ export default function Home() {
   })
 
   async function onSubmit(data: CreateUserInput) {
+    setPendingFormData(data)
+    setShowConfirmDialog(true)
+  }
+
+  async function handleConfirmCreate() {
+    if (!pendingFormData) return
+
     try {
-      const dataWithTab = { ...data, tipo: selectedTab }
+      const dataWithTab = { ...pendingFormData, tipo: selectedTab }
       await mutateAsync(dataWithTab)
       toast.success("Usuário cadastrado com sucesso")
       form.reset()
+      setShowConfirmDialog(false)
+      setPendingFormData(null)
     } catch (error: any) {
       console.error("Erro ao cadastrar:", error)
       toast.error(error?.message || "Erro ao cadastrar usuário")
@@ -260,19 +272,36 @@ export default function Home() {
                     />
                   )}
 
+                  <div className="flex flex-col items-center justify-center">
+                    <span className="text-sm text-white font-light">Ao continuar, você concorda com os</span>
+                    <span className="text-sm text-white font-light"><strong className="font-extrabold">Termos de serviço</strong> e <strong className="font-extrabold">Políticas de privacidade</strong></span>
+                  </div>
+
                   <Button 
                     type="submit" 
                     disabled={isPending}
                     style={{
                       backgroundColor: "#CDEA80",
                       color: "black",
+                      borderRadius: "100px"
                     }}
                     className="w-full text-black font-semibold mt-4 hover:opacity-70"
                   >
+
+                  <ConfirmCreateAccountDialog
+                    isOpen={showConfirmDialog}
+                    onConfirm={handleConfirmCreate}
+                    onCancel={() => {
+                      setShowConfirmDialog(false)
+                      setPendingFormData(null)
+                    }}
+                    isLoading={isPending}
+                  />
                     {isPending ? "Salvando..." : "Cadastrar"}
                   </Button>
                 </form>
               </Form>
+              <span className="text-sm text-white font-light pt-6">Já possui uma conta? <strong className="font-extrabold">Entre agora</strong></span>
             </div>
           </div>
         </div>
