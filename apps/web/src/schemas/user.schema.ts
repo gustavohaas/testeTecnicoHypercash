@@ -7,8 +7,18 @@ export const createUserSchema = z.object({
   monthlyRevenue: z.string().min(1, "Faturamento médio mensal é obrigatório"),
   whatsappAdmin: z.string().min(10, "WhatsApp do administrador é obrigatório"),
   whatsappSuport: z.string().min(10, "WhatsApp do suporte é obrigatório"),
-  password: z.string().min(8, "Senha deve ter no mínimo 8 caracteres"),
-  confirmPassword: z.string().min(8, "Confirmar senha deve ter no mínimo 8 caracteres")
+  password: z
+    .string()
+    .min(8, "A senha deve ter no mínimo 8 caracteres")
+    .regex(/[A-Z]/, "Deve conter pelo menos uma letra maiúscula")
+    .regex(/[a-z]/, "Deve conter pelo menos uma letra minúscula")
+    .regex(/[0-9]/, "Deve conter pelo menos um número")
+    .regex(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/, "Deve conter pelo menos um caractere especial"),
+  confirmPassword: z.string(),
+  projectType: z.enum(["InfoProduto", "Dropshipping", "E-commerce"]),
+}).refine((data) => data.password === data.confirmPassword, {
+  message: "As senhas não coincidem",
+  path: ["confirmPassword"],
 })
 
 export type CreateUserInput = z.infer<typeof createUserSchema>

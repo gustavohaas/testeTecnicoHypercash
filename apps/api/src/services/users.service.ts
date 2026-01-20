@@ -5,10 +5,10 @@ export function createUser(data: CreateUserInput) {
   const query = db.prepare(`
     INSERT INTO users (
       name, email, cnpj, monthly_revenue, 
-      whatsapp_admin, whatsapp_suport, password, created_at
+      whatsapp_admin, whatsapp_suport, password, project_type, created_at
     ) VALUES (
       $name, $email, $cnpj, $monthly_revenue, 
-      $whatsapp_admin, $whatsapp_suport, $password, $created_at
+      $whatsapp_admin, $whatsapp_suport, $password, $project_type, $created_at
     )
   `)
 
@@ -21,6 +21,7 @@ export function createUser(data: CreateUserInput) {
       $whatsapp_admin: data.whatsappAdmin,
       $whatsapp_suport: data.whatsappSuport,
       $password: data.password, 
+      $project_type: data.projectType,
       $created_at: new Date().toISOString()
     })
 
@@ -37,7 +38,7 @@ export function listUsers() {
   return db.query(`
     SELECT 
       id, name, email, cnpj, monthly_revenue, 
-      whatsapp_admin, whatsapp_suport, created_at 
+      whatsapp_admin, whatsapp_suport, project_type, created_at 
     FROM users 
     ORDER BY created_at DESC
   `).all()

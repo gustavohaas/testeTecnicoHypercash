@@ -1,4 +1,4 @@
-import { CreateUserInput } from "@/validators/user.schema"
+import { CreateUserInput } from "@/schemas/user.schema"
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL
 

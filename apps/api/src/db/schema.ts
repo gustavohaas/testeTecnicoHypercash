@@ -7,5 +7,6 @@ export type User = {
   whatsapp_admin: string
   whatsapp_suport: string
   password: string
+  project_type: string
   created_at: string
 }

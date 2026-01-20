@@ -12,6 +12,7 @@ db.run(`
     whatsapp_admin TEXT NOT NULL,
     whatsapp_suport TEXT NOT NULL,
     password TEXT NOT NULL,
+    project_type TEXT NOT NULL,
     created_at TEXT NOT NULL
   )
 `)

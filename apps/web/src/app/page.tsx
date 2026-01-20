@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input"
 import { PasswordInput } from "@/components/ui/password-input"
 import { PasswordRequirements } from "@/components/password-requirements"
 import { ConfirmCreateAccountDialog } from "@/components/confirm-create-account-dialog"
+import { CreateAccountSuccessDialog } from "@/components/create-account-success-dialog"
 import {
   Form,
   FormField,
@@ -23,15 +24,17 @@ import {
 import { useState } from "react"
 
 export default function Home() {
-  const [selectedTab, setSelectedTab] = useState<"infoProduto" | "dropshipping" | "ecommerce">("infoProduto")
-  const [showConfirmDialog, setShowConfirmDialog] = useState(false)
+  const [selectedTab, setSelectedTab] = useState<"InfoProduto" | "Dropshipping" | "E-commerce">("InfoProduto")
+  const [modalStep, setModalStep] = useState<ModalStep>("idle")
   const [pendingFormData, setPendingFormData] = useState<CreateUserInput | null>(null)
   const { mutateAsync, isPending } = useCreateUser()
 
+  type ModalStep = "idle" | "confirm" | "success"
+
   const tabs = [
-    { id: "infoProduto", label: "InfoProduto" },
-    { id: "dropshipping", label: "Dropshipping" },
-    { id: "ecommerce", label: "E-commerce" },
+    { label: "InfoProduto" },
+    { label: "Dropshipping" },
+    { label: "E-commerce" },
   ]
 
   const form = useForm<CreateUserInput>({
@@ -45,23 +48,23 @@ export default function Home() {
       whatsappSuport: "",
       password: "",
       confirmPassword: "",
+      projectType: selectedTab,
     },
   })
 
   async function onSubmit(data: CreateUserInput) {
     setPendingFormData(data)
-    setShowConfirmDialog(true)
+    setModalStep("confirm")
   }
 
   async function handleConfirmCreate() {
     if (!pendingFormData) return
-
     try {
       const dataWithTab = { ...pendingFormData, tipo: selectedTab }
+      console.log("Dados enviados:", dataWithTab)
       await mutateAsync(dataWithTab)
-      toast.success("Usuário cadastrado com sucesso")
+      setModalStep("success") 
       form.reset()
-      setShowConfirmDialog(false)
       setPendingFormData(null)
     } catch (error: any) {
       console.error("Erro ao cadastrar:", error)
@@ -70,7 +73,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex items-center justify-center" style={{ backgroundColor: "#121616" }}>
+    <main className="flex items-center justify-center bg-[#121616]">
       <div className="flex" style={{ width: "1440px" }}>
         <div className="w-1/2 flex items-center justify-center p-8 h-screen">
           <img
@@ -99,15 +102,15 @@ export default function Home() {
               <div className="flex mb-8 w-full justify-center rounded-lg" style={{ backgroundColor: "#27272A", width: "400px", gap: "4px", height: "36px" }}>
                 {tabs.map((tab) => (
                   <button
-                    key={tab.id}
-                    onClick={() => setSelectedTab(tab.id as typeof selectedTab)}
+                    key={tab.label}
+                    onClick={() => setSelectedTab(tab.label as typeof selectedTab)}
                     className={`flex-1 py-2 rounded-lg font-semibold transition-colors ${
-                      selectedTab === tab.id
+                      selectedTab === tab.label
                         ? "text-black"
                         : "text-gray-400 hover:text-gray-300"
                     }`}
                     style={{
-                      backgroundColor: selectedTab === tab.id ? "#CDEA80" : "#27272A",
+                      backgroundColor: selectedTab === tab.label ? "#CDEA80" : "#27272A",
                     }}
                   >
                     {tab.label}
@@ -287,20 +290,26 @@ export default function Home() {
                     }}
                     className="w-full text-black font-semibold mt-4 hover:opacity-70"
                   >
-
-                  <ConfirmCreateAccountDialog
-                    isOpen={showConfirmDialog}
-                    onConfirm={handleConfirmCreate}
-                    onCancel={() => {
-                      setShowConfirmDialog(false)
-                      setPendingFormData(null)
-                    }}
-                    isLoading={isPending}
-                  />
+                
                     {isPending ? "Salvando..." : "Cadastrar"}
                   </Button>
                 </form>
               </Form>
+              <ConfirmCreateAccountDialog
+                isOpen={modalStep === "confirm"}
+                onConfirm={handleConfirmCreate}
+                onCancel={() => setModalStep("idle")}
+                isLoading={isPending}
+                productType={selectedTab}
+              />
+
+              <CreateAccountSuccessDialog
+                isOpen={modalStep === "success"}
+                productType={selectedTab}
+                isLoading={false}
+                onConfirm={() => setModalStep("idle")}
+                onCancel={() => setModalStep("idle")}
+              />
               <span className="text-sm text-white font-light pt-6">Já possui uma conta? <strong className="font-extrabold">Entre agora</strong></span>
             </div>
           </div>

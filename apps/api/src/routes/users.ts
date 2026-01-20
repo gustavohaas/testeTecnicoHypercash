@@ -5,13 +5,11 @@ import { createUser, deleteUser, listUsers } from '../services/users.service'
 
 export const usersRoutes = new Hono()
 
-// GET /api/users
 usersRoutes.get('/', (c) => {
   const users = listUsers()
   return c.json(users)
 })
 
-// POST /api/users
 usersRoutes.post(
   '/',
   zValidator('json', createUserSchema),
@@ -40,7 +38,6 @@ usersRoutes.post(
   }
 )
 
-// DELETE /api/users/:id
 usersRoutes.delete('/:id', (c) => {
   const id = Number(c.req.param('id'))
 
@@ -49,7 +46,6 @@ usersRoutes.delete('/:id', (c) => {
   }
 
   const deleted = deleteUser(id)
-
   if (!deleted) {
     return c.json({ message: 'Usuário não encontrado' }, 404)
   }

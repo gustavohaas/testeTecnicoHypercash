@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { X } from "lucide-react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 
-interface ConfirmCreateAccountDialogProps {
+interface CreateAccountSuccessDialogProps {
   isOpen: boolean
   onConfirm: () => void
   onCancel: () => void
@@ -18,13 +18,13 @@ interface ConfirmCreateAccountDialogProps {
   productType: string
 }
 
-export function ConfirmCreateAccountDialog({
+export function CreateAccountSuccessDialog({
   isOpen,
   onConfirm,
   onCancel,
   isLoading,
   productType,
-}: ConfirmCreateAccountDialogProps) {
+}: CreateAccountSuccessDialogProps) {
   return (
     <Dialog open={isOpen} onOpenChange={onCancel}>
       <DialogContent className="sm:max-w-[640px] h-[250px] flex flex-col items-center justify-center bg-[#18181B] border-[#27272A]">
@@ -33,24 +33,12 @@ export function ConfirmCreateAccountDialog({
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>
         <DialogHeader className="flex flex-col items-center justify-center text-center">
-          <DialogTitle className="text-white text-lg">Confirmar criação de conta</DialogTitle>
+          <DialogTitle className="text-white text-lg">Conta criada com sucesso!</DialogTitle>
           <DialogDescription className="text-gray-400">
-            Tem certeza que deseja criar uma nova conta no segmento de {productType}?
+            Sua conta no segmento {productType} foi criada com sucesso.
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-3 flex flex-col items-center justify-center">
-          <Button
-            onClick={onCancel}
-            disabled={isLoading}
-            style={{
-              backgroundColor: "#27272A",
-              color: "white",
-              border: "1px solid #3f3f46",
-            }}
-            className="hover:bg-gray-700"
-          >
-            Cancelar
-          </Button>
           <Button
             onClick={onConfirm}
             disabled={isLoading}
