@@ -24,7 +24,8 @@ cd api
 bun install
 cd ../web 
 bun install
-3. Rodar (Full-Stack)
+
+Rodar (Full-Stack)
 Na pasta /web, execute o comando que inicia o Frontend e o Backend simultaneamente:
 
 bun dev:all
