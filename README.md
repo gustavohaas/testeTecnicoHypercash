@@ -20,12 +20,15 @@ Bash
 git clone https://github.com/gustavohaas/testeTecnicoHypercash.git
 
 # Instalar dependências
-cd api && bun install
-cd ../web && bun install
+cd api 
+bun install
+cd ../web 
+bun install
 3. Rodar (Full-Stack)
 Na pasta /web, execute o comando que inicia o Frontend e o Backend simultaneamente:
 
-bun run dev:all
+bun dev:all
+
 Web: http://localhost:3001
 
 API: http://localhost:3000
