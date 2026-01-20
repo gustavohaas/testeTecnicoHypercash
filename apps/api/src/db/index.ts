@@ -8,7 +8,7 @@ db.run(`
     name TEXT NOT NULL,
     email TEXT NOT NULL UNIQUE,
     cnpj TEXT NOT NULL,
-    monthly_revenue REAL NOT NULL,
+    monthly_revenue TEXT NOT NULL,
     whatsapp_admin TEXT NOT NULL,
     whatsapp_suport TEXT NOT NULL,
     password TEXT NOT NULL,

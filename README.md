@@ -9,6 +9,8 @@ Banco: SQLite (bun:sqlite).
 
 Libs chave: TanStack Query & Table, React Hook Form, Zod.
 
+Configure o .env.local de acordo com o .env.example
+
 Instalação e Execução
 1. Requisitos
 Bun instalado.
@@ -20,7 +22,7 @@ Bash
 git clone https://github.com/gustavohaas/testeTecnicoHypercash.git
 
 # Instalar dependências
-cd api 
+cd apps/api 
 
 bun install
 

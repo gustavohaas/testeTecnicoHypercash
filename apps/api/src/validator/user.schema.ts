@@ -2,7 +2,7 @@ import { z } from "zod"
 
 export const createUserSchema = z.object({
   name: z.string().min(3, "Nome deve ter no mínimo 3 caracteres"),
-  email: z.email("E-mail inválido"),
+  email: z.string().email("E-mail inválido"),
   cnpj: z.string().min(14, "CNPJ deve ter no mínimo 14 caracteres"),
   monthlyRevenue: z.string().min(1, "Faturamento médio mensal é obrigatório"),
   whatsappAdmin: z.string().min(10, "WhatsApp do administrador é obrigatório"),
