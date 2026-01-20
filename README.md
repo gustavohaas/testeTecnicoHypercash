@@ -21,8 +21,11 @@ git clone https://github.com/gustavohaas/testeTecnicoHypercash.git
 
 # Instalar dependências
 cd api 
+
 bun install
+
 cd ../web 
+
 bun install
 
 Rodar (Full-Stack)
