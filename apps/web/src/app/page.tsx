@@ -60,8 +60,7 @@ export default function Home() {
   async function handleConfirmCreate() {
     if (!pendingFormData) return
     try {
-      const dataWithTab = { ...pendingFormData, tipo: selectedTab }
-      console.log("Dados enviados:", dataWithTab)
+      const dataWithTab = { ...pendingFormData, projectType: selectedTab }
       await mutateAsync(dataWithTab)
       setModalStep("success") 
       form.reset()

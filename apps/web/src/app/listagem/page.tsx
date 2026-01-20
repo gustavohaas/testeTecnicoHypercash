@@ -35,8 +35,6 @@ export default function Listagem() {
   const { data = [], isLoading } = useUsers()
   const { mutateAsync, isPending } = useDeleteUser()
 
-  console.log("Usuários carregados:", data)
-
   const [globalFilter, setGlobalFilter] = useState("")
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
 
