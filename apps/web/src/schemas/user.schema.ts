@@ -3,7 +3,7 @@ import { z } from "zod"
 export const createUserSchema = z.object({
   name: z.string().min(3, "Nome deve ter no mínimo 3 caracteres"),
   email: z.email("E-mail inválido"),
-  cnpj: z.string().min(14, "CNPJ deve ter no mínimo 14 caracteres"),
+  cnpj: z.string().min(14, "CNPJ muito curto").max(18, "CNPJ muito longo").regex(/^(\d{14}|\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})$/, "Formato de CNPJ inválido"),
   monthlyRevenue: z.string().min(1, "Faturamento médio mensal é obrigatório"),
   whatsappAdmin: z.string().min(10, "WhatsApp do administrador é obrigatório"),
   whatsappSuport: z.string().min(10, "WhatsApp do suporte é obrigatório"),

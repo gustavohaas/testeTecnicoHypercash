@@ -166,7 +166,8 @@ export default function Home() {
                           <FormLabel className="text-white">CNPJ *</FormLabel>
                             <FormControl>
                               <Input 
-                                placeholder="Digite o seu CNPJ" 
+                                placeholder="Digite o seu CNPJ"
+                                maxLength={18} 
                                 {...field}
                                 className="custom-bg text-white border-gray-700 placeholder-gray-500"
                               />

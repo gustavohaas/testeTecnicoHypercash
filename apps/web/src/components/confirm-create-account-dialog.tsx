@@ -33,7 +33,7 @@ export function ConfirmCreateAccountDialog({
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>
         <DialogHeader className="flex flex-col items-center justify-center text-center">
-          <DialogTitle className="text-white text-lg">Confirmar criação de conta</DialogTitle>
+          <DialogTitle className="text-white text-lg" style={{ fontSize: "24px", fontWeight: "700" }}>Confirmar criação de conta</DialogTitle>
           <DialogDescription className="text-gray-400">
             Tem certeza que deseja criar uma nova conta no segmento de {productType}?
           </DialogDescription>
@@ -46,6 +46,7 @@ export function ConfirmCreateAccountDialog({
               backgroundColor: "#27272A",
               color: "white",
               border: "1px solid #3f3f46",
+              borderRadius: "100px",
             }}
             className="hover:bg-gray-700"
           >
@@ -57,6 +58,7 @@ export function ConfirmCreateAccountDialog({
             style={{
               backgroundColor: "#CDEA80",
               color: "black",
+              borderRadius: "100px",
             }}
             className="font-semibold hover:opacity-90"
           >

@@ -7,7 +7,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { X } from "lucide-react"
+import { X, CircleCheck } from "lucide-react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 
 interface CreateAccountSuccessDialogProps {
@@ -33,6 +33,7 @@ export function CreateAccountSuccessDialog({
           <span className="sr-only">Close</span>
         </DialogPrimitive.Close>
         <DialogHeader className="flex flex-col items-center justify-center text-center">
+          <CircleCheck className="h-8 w-8 text-[#CDEA80] mb-4" />
           <DialogTitle className="text-white text-lg">Conta criada com sucesso!</DialogTitle>
           <DialogDescription className="text-gray-400">
             Sua conta no segmento {productType} foi criada com sucesso.
@@ -45,6 +46,7 @@ export function CreateAccountSuccessDialog({
             style={{
               backgroundColor: "#CDEA80",
               color: "black",
+              borderRadius: "100px",
             }}
             className="font-semibold hover:opacity-90"
           >
