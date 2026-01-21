@@ -35,9 +35,9 @@ Na pasta /web, execute o comando que inicia o Frontend e o Backend simultaneamen
 
 bun dev:all
 
-Web: http://localhost:3001
+Web: http://localhost:3000
 
-API: http://localhost:3000
+API: http://localhost:3001
 
 🏗️ Estrutura
 /api: Endpoints Hono, lógica de banco e arquivo .sqlite.
